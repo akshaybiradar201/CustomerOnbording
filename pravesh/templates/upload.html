@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<h1>Upload Document(s)</h1>
+<div class="container" style="display:grid;place-items:center;">
+
+<form method="post" id="upload_form" enctype="multipart/form-data">
+  {% csrf_token %}
+  <h2> Selected Country : {{country}}</h2>
+  <select id="document_set_list" name="document_set_list">
+    <option value=-1> Select Document Type</option>
+    {% for doc in documents %}
+    <option value={{ doc.id }}>{{doc.name}}</option>
+    {% endfor %}
+  </select>
+  <br>
+  <br>
+  <label for="document_front">Front side of Document</label>
+  <div class="upload-container">
+    <label for="document_front">
+      <img id="document_front_preview" alt="Front side preview" src="{% static 'upload_doc.png' %}"/>
+    </label>
+    <input type="file" name="document_front" id="document_front">
+  </div>
+  <br>
+  <label for="document_back">Back side of Document (Optional)</label>
+  <div class="upload-container">
+    <label for="document_back">
+      <img id="document_back_preview" alt="Back side preview" src="{% static 'upload_doc.png' %}"/>
+    </label>
+    <input type="file" name="document_back" id="document_back">
+  </div>
+  <br>
+  <div class="upload-container">
+  <button type="submit" class="image-button"><img alt="upload" src="{% static 'upload.png' %}"/> </button>
+  </div>  
+</form>
+</div>
+
+
+<script>
+  window.onload = function() {
+    document.getElementById("upload_form").reset();
+  };
+  
+  const documentFrontInput = document.getElementById('document_front');
+  const documentFrontPreview = document.getElementById('document_front_preview');
+
+documentFrontInput.addEventListener('change', (event) => {
+  const uploadedFile = event.target.files[0];
+  if (uploadedFile) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      documentFrontPreview.src = e.target.result;
+    };
+    reader.readAsDataURL(uploadedFile);
+  }
+});
+
+const documentbackInput = document.getElementById('document_back');
+const documentbackPreview = document.getElementById('document_back_preview');
+documentbackInput.addEventListener('change', (event) => {
+  const uploadedFile = event.target.files[0];
+  if (uploadedFile) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      documentbackPreview.src = e.target.result;
+    };
+    reader.readAsDataURL(uploadedFile);
+  }
+});
+
+
+document.getElementById('upload_form').addEventListener('submit', function(event) {
+  var isValid = true
+  const documentFrontInput = document.getElementById("document_front");
+  console.log(documentFrontInput)
+  if (documentFrontInput.files.length === 0) {
+    event.preventDefault(); 
+    alert("Please upload a document for the front side.");
+  }
+  if (document.getElementById('document_set_list').value == -1){
+    isValid = false 
+  }
+  if (!isValid) {  
+    event.preventDefault();  
+    alert("Please Select Document Type")
+  }
+});
+
+</script>
+
+{% endblock %}

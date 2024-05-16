@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="link-container">
+    <a href="{% url 'upload' %}">Create Customer</a>
+    <div class="separator"></div>
+    <a href="{% url 'upload' %}">List Customers</a>
+</div>
+{% endblock %}

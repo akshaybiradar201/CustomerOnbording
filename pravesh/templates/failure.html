@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container" style="height:80%;display:flex;align-items:center;justify-content:center;flex-direction: column;">
+  <img src="{% static "wrong.jpeg" %}" style="margin-bottom: 10px;"> 
+  <div>
+    {%if message %}
+        {{message}}
+    {% else %}
+        <h3>Customer Already Exists!<h3>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/VERSION/css/all.min.css">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+        <style>
+            
+        </style>
+        <title>
+            Pravesh
+        </title>
+    </head>
+    <body>
+        <nav class="navbar">
+            <a href="{% url 'dashboard' %}"class="brand-name">Pravesh</a>
+            <ul class="nav-links">
+              <li><a href="{% url 'login' %}">Login</a></li>
+              <li><a href="{% url 'upload' %}">Create Customer</a></li>
+              <li><a href="{% url 'upload' %}">List Customers</a></li>
+            </ul>
+          </nav>
+        {% block content %}
+
+        {% endblock %}
+    </body>
+<html>
+

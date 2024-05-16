@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static%}
+{% block content %}
+<div class="upload-container" style="margin-top:100px;display:flex;flex-direction:column;">
+<h1>Log In to the customer Onboarding Portal<h1>
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <div class="upload-container">
+        <button type="submit" value="Login" class="image-button"><img alt="upload" src="{% static 'proceed.png' %}"/> </button>
+    </div> 
+</form>
+</div>
+{% endblock %}
